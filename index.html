@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planet Walker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="hud">
+
+    <!-- ── Controls panel ──────────────────────────────────────── -->
+    <aside id="panel">
+      <h2 id="panel-title">Planet Walker</h2>
+      <ul id="controls-list">
+        <li><span class="keys"><kbd>W</kbd><kbd>S</kbd></span>Walk forward / back</li>
+        <li><span class="keys"><kbd>A</kbd><kbd>D</kbd></span>Turn left / right</li>
+        <li><span class="keys"><kbd>Space</kbd></span>Jump</li>
+        <li><span class="keys"><kbd>Shift</kbd></span>Sprint</li>
+      </ul>
+    </aside>
+
+    <!-- ── Compass ─────────────────────────────────────────────── -->
+    <div id="compass" aria-label="Compass">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="30"
+          fill="rgba(8,12,24,0.72)"
+          stroke="rgba(120,160,255,0.2)" stroke-width="1"/>
+        <g stroke="rgba(120,160,255,0.3)" stroke-width="0.8">
+          <line x1="32" y1="4"  x2="32" y2="9"/>
+          <line x1="32" y1="55" x2="32" y2="60"/>
+          <line x1="4"  y1="32" x2="9"  y2="32"/>
+          <line x1="55" y1="32" x2="60" y2="32"/>
+        </g>
+        <text x="32" y="16"  text-anchor="middle" class="compass-label north">N</text>
+        <text x="32" y="54"  text-anchor="middle" class="compass-label">S</text>
+        <text x="52" y="35"  text-anchor="middle" class="compass-label">E</text>
+        <text x="13" y="35"  text-anchor="middle" class="compass-label">W</text>
+        <g id="compass-needle" style="transform-origin:32px 32px">
+          <polygon points="32,10 29,32 32,28 35,32" fill="#ff6b6b"/>
+          <polygon points="32,54 29,32 32,36 35,32" fill="#4a6090"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ── Stats bar ───────────────────────────────────────────── -->
+    <div id="stats" role="status" aria-live="off">
+      <div class="stat">
+        <span class="stat-label">Altitude</span>
+        <span class="stat-value" id="stat-alt">0.00 m</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Speed</span>
+        <span class="stat-value" id="stat-spd">0.0 u/s</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Lat</span>
+        <span class="stat-value" id="stat-lat">0.0°</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Lon</span>
+        <span class="stat-value" id="stat-lon">0.0°</span>
+      </div>
+    </div>
+
+    <!-- ── Jump indicator ─────────────────────────────────────── -->
+    <div id="jump-ready" aria-hidden="true">● Ready to jump</div>
+
+    <!-- ── Mobile D-pad ───────────────────────────────────────── -->
+    <nav id="mobile-controls" aria-label="On-screen controls">
+      <div class="dpad">
+        <button class="dpad-btn" id="btn-fwd"   aria-label="Forward">↑</button>
+        <button class="dpad-btn" id="btn-back"  aria-label="Back">↓</button>
+        <button class="dpad-btn" id="btn-left"  aria-label="Turn left">←</button>
+        <button class="dpad-btn" id="btn-right" aria-label="Turn right">→</button>
+      </div>
+      <button id="btn-jump" aria-label="Jump">↑</button>
+    </nav>
+
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
