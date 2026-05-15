@@ -84,10 +84,6 @@ export class DayNight {
     scene.add(mesh)
 
     this._buildMoon(scene)
-
-    window.addEventListener('keydown', e => {
-      if (e.key === 't' || e.key === 'T') this.time = (this.time + 0.1) % 1
-    })
   }
 
   _buildMoon(scene) {

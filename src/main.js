@@ -46,9 +46,10 @@ buildAtmosphere(scene)
 addRocks(scene)
 buildWorldTrees(scene)
 
-// ─── Cosmos + Day/night ───────────────────────────────────────────────────────
+// ─── Cosmos + fixed noon lighting ────────────────────────────────────────────
 const cosmos   = new Cosmos(scene)
 const dayNight = new DayNight(scene, cosmos, ambient)
+dayNight.update(0)  // one-time call: lock sky/sun/ambient at noon (time=0.5)
 
 // ─── Portfolio zones ─────────────────────────────────────────────────────────
 const zones          = buildZones(scene)
@@ -92,7 +93,6 @@ function tick() {
     if (beacon) beacon.intensity = 3 + Math.sin(now * 0.003) * 1.5
   }
 
-  dayNight.update(dt)
   cosmos.update(dt)
   zoneInteraction.update(player.position)
   dust.update()
