@@ -6,9 +6,9 @@ import {
   TERRAIN_COLOR_OFFSET, TERRAIN_COLOR_RANGE,
 } from '../constants.js'
 
-const COLOR_LOW  = new THREE.Color(0x2a5c30)
-const COLOR_MID  = new THREE.Color(0x5a8a4a)
-const COLOR_HIGH = new THREE.Color(0x8a7060)
+const COLOR_LOW  = new THREE.Color(0x1e5c25)
+const COLOR_MID  = new THREE.Color(0x4a8c38)
+const COLOR_HIGH = new THREE.Color(0x8c7a5c)
 
 function displaceTerrain(geo) {
   const pos = geo.attributes.position

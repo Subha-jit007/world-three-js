@@ -1,11 +1,11 @@
 import * as THREE from 'three'
+import { fbm } from '../utils/math.js'
 import {
   PLANET_RADIUS, PLAYER_RADIUS, GROUND_OFFSET,
+  TERRAIN_DISP_BASE, TERRAIN_DISP_AMP, TERRAIN_FBM_OCTAVES,
   GRAVITY, WALK_SPEED, SPRINT_MULT, TURN_SPEED, JUMP_VEL,
   DUST_WALK_PROB,
 } from '../constants.js'
-
-const GROUND_DIST = PLANET_RADIUS + PLAYER_RADIUS + GROUND_OFFSET
 
 /**
  * Handles all movement and gravity physics for the player.
@@ -71,8 +71,11 @@ export class Physics {
     this.verticalVel -= GRAVITY
     const newDist = position.length() + this.verticalVel
 
-    if (newDist <= GROUND_DIST) {
-      position.setLength(GROUND_DIST)
+    const h          = fbm(surfaceUp.x, surfaceUp.y, surfaceUp.z, TERRAIN_FBM_OCTAVES)
+    const groundDist = PLANET_RADIUS + TERRAIN_DISP_BASE + h * TERRAIN_DISP_AMP + PLAYER_RADIUS + GROUND_OFFSET
+
+    if (newDist <= groundDist) {
+      position.setLength(groundDist)
       this.verticalVel = 0
       if (!wasOnGround) this.onLand?.()
       this.onGround = true

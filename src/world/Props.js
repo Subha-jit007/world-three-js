@@ -7,13 +7,16 @@ import {
   TREE_COUNT, TREE_SURFACE_OFFSET,
 } from '../constants.js'
 
-/** Rotate a group so its local +Y aligns with surfaceDir */
-function alignToSurface(group, surfaceDir) {
-  const worldUp = new THREE.Vector3(0, 1, 0)
-  const axis    = worldUp.clone().cross(surfaceDir).normalize()
-  if (axis.length() < 0.001) return
-  const angle = Math.acos(Math.max(-1, Math.min(1, worldUp.dot(surfaceDir))))
-  group.quaternion.setFromAxisAngle(axis, angle)
+const _worldY = new THREE.Vector3(0, 1, 0)
+const _spinQ  = new THREE.Quaternion()
+
+/** Rotate an object so its local +Y aligns with surfaceDir, plus random spin */
+function alignToSurface(obj, surfaceDir, randomSpin = false) {
+  obj.quaternion.setFromUnitVectors(_worldY, surfaceDir)
+  if (randomSpin) {
+    _spinQ.setFromAxisAngle(surfaceDir, Math.random() * Math.PI * 2)
+    obj.quaternion.premultiply(_spinQ)
+  }
 }
 
 /** Returns a unit-sphere direction from spherical coordinates */
@@ -44,7 +47,7 @@ export function addRocks(scene) {
     const rock  = new THREE.Mesh(
       new THREE.IcosahedronGeometry(ROCK_SIZE_MIN + Math.random() * ROCK_SIZE_VAR, 0), mat)
     rock.position.copy(dir.clone().multiplyScalar(terrainRadius(dir) + 0.05))
-    rock.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI)
+    alignToSurface(rock, dir, true)
     rock.castShadow = rock.receiveShadow = true
     scene.add(rock)
   }

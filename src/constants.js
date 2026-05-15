@@ -1,8 +1,8 @@
 // ─── Camera ──────────────────────────────────────────────────────────────────
-export const CAM_FOV         = 65
+export const CAM_FOV         = 60
 export const CAM_NEAR        = 0.1
 export const CAM_FAR         = 3000
-export const CAM_DIST        = 6
+export const CAM_DIST        = 8
 export const CAM_HEIGHT      = 3
 export const CAM_SPRING_K    = 0.08
 export const CAM_SPRING_D    = 0.82
@@ -18,8 +18,8 @@ export const TERRAIN_SUBDIV        = 5
 export const TERRAIN_DISP_BASE     = 6
 export const TERRAIN_DISP_AMP      = 5
 export const TERRAIN_FBM_OCTAVES   = 5
-export const TERRAIN_COLOR_OFFSET  = 2
-export const TERRAIN_COLOR_RANGE   = 8
+export const TERRAIN_COLOR_OFFSET  = -1
+export const TERRAIN_COLOR_RANGE   = 10
 
 // ─── Fresnel atmosphere (shader) ─────────────────────────────────────────────
 export const ATMO_THICKNESS      = 25
@@ -63,7 +63,7 @@ export const TREE_SURFACE_OFFSET = 2.0
 
 // ─── Player ──────────────────────────────────────────────────────────────────
 export const PLAYER_RADIUS   = 0.55
-export const GROUND_OFFSET   = 0.9
+export const GROUND_OFFSET   = 1.5
 
 // ─── Player body proportions ─────────────────────────────────────────────────
 export const BODY_TOP_Y    =  0.35

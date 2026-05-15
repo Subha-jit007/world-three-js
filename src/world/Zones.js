@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js'
 import { PLANET_RADIUS, TERRAIN_DISP_BASE } from '../constants.js'
 
-const SURFACE_R = PLANET_RADIUS + TERRAIN_DISP_BASE + 1  // just above terrain
+const SURFACE_R = PLANET_RADIUS + TERRAIN_DISP_BASE + 3  // comfortably above average terrain
 
 export const ZONE_DEFS = [
   { id: 'projects',    label: 'PROJECTS',    lat: 75, lon: 0,   desc: 'Selected work — web, 3D, and interactive experiments.', color: 0x00ffcc },
@@ -176,10 +176,10 @@ function buildContact(up, scene) {
 
 export function buildWorldTrees(scene) {
   const COUNT   = 120
-  const trunkG  = new THREE.CylinderGeometry(0.3, 0.5, 3.5, 6)
-  const canopyG = new THREE.ConeGeometry(2.8, 6, 6)
-  const trunkM  = new THREE.MeshStandardMaterial({ color: 0x3d2b18, roughness: 0.9 })
-  const canopyM = new THREE.MeshStandardMaterial({ color: 0x2a6030, flatShading: true, roughness: 0.8 })
+  const trunkG  = new THREE.CylinderGeometry(0.4, 0.7, 5, 6)
+  const canopyG = new THREE.ConeGeometry(3.5, 7, 6)
+  const trunkM  = new THREE.MeshLambertMaterial({ color: 0x4a2f1a })
+  const canopyM = new THREE.MeshLambertMaterial({ color: 0x2d5a1b })
 
   const trunks  = new THREE.InstancedMesh(trunkG, trunkM, COUNT)
   const canopies = new THREE.InstancedMesh(canopyG, canopyM, COUNT)
@@ -198,12 +198,12 @@ export function buildWorldTrees(scene) {
     )
     const base = dir.clone().multiplyScalar(SURFACE_R)
 
-    dummy.position.copy(base.clone().addScaledVector(dir, 1.75))
+    dummy.position.copy(base.clone().addScaledVector(dir, 2.5))
     dummy.quaternion.setFromUnitVectors(worldY, dir)
     dummy.updateMatrix()
     trunks.setMatrixAt(i, dummy.matrix)
 
-    dummy.position.copy(base.clone().addScaledVector(dir, 6.5))
+    dummy.position.copy(base.clone().addScaledVector(dir, 8.5))
     dummy.quaternion.setFromUnitVectors(worldY, dir)
     dummy.updateMatrix()
     canopies.setMatrixAt(i, dummy.matrix)
