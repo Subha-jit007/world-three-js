@@ -61,8 +61,7 @@ export class Cosmos {
 
     this._buildGalaxy()
     this._buildSun(scene)
-    this._buildPlanets()
-    this._buildNebulae()
+    // Distant planets and nebulae removed — visible from space, wrong from ground
   }
 
   /** @param {number} dt  seconds since last frame */
@@ -127,7 +126,7 @@ export class Cosmos {
     this._sunLight.castShadow = true
     this._sunLight.shadow.mapSize.set(2048, 2048)
     Object.assign(this._sunLight.shadow.camera, {
-      near: 0.5, far: 300, left: -60, right: 60, top: 60, bottom: -60,
+      near: 10, far: 3500, left: -300, right: 300, top: 300, bottom: -300,
     })
     this._sunLight.shadow.bias = -0.001
     this._sunLight.position.copy(initPos)

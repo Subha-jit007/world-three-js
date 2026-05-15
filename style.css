@@ -243,3 +243,101 @@ kbd {
 @media (pointer: coarse) {
   #mobile-controls { display: flex; }
 }
+
+/* ─── Zone hint ────────────────────────────────────────────────────────────── */
+#zone-hint {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 18px;
+  background: rgba(8, 12, 24, 0.82);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 20px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #e0eaff;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: opacity 0.3s;
+}
+
+/* ─── Zone panel ───────────────────────────────────────────────────────────── */
+:root { --zone-color: #a8c4ff; }
+
+#zone-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 320px;
+  max-width: 420px;
+  background: rgba(6, 10, 20, 0.92);
+  border: 1px solid var(--zone-color);
+  border-radius: 14px;
+  padding: 28px 32px;
+  pointer-events: all;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 0 40px rgba(0,0,0,0.6), 0 0 20px color-mix(in srgb, var(--zone-color) 20%, transparent);
+  z-index: 100;
+}
+
+#zone-panel-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--zone-color);
+  margin-bottom: 12px;
+}
+
+#zone-panel-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #b0c4e0;
+  margin-bottom: 22px;
+}
+
+#zone-panel-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: transparent;
+  border: 1px solid var(--zone-color);
+  border-radius: 8px;
+  color: var(--zone-color);
+  font-size: 12px;
+  font-family: var(--font-ui);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#zone-panel-close:hover {
+  background: color-mix(in srgb, var(--zone-color) 15%, transparent);
+}
+
+/* ─── CSS2D zone labels (Three.js CSS2DRenderer) ───────────────────────────── */
+.zone-label {
+  padding: 4px 12px;
+  background: rgba(6, 10, 20, 0.78);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e0eaff;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ─── Utility ──────────────────────────────────────────────────────────────── */
+.hidden { display: none !important; }

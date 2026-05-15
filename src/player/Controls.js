@@ -15,6 +15,7 @@ export class Controls {
   get right()    { return this._keys.has('KeyD') }
   get jump()     { return this._keys.has('Space') }
   get sprint()   { return this._keys.has('ShiftLeft') || this._keys.has('ShiftRight') }
+  get interact() { return this._keys.has('KeyE') }
 
   _press(code)   { this._keys.add(code) }
   _release(code) { this._keys.delete(code) }

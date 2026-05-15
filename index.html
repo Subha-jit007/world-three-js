@@ -18,6 +18,8 @@
         <li><span class="keys"><kbd>A</kbd><kbd>D</kbd></span>Turn left / right</li>
         <li><span class="keys"><kbd>Space</kbd></span>Jump</li>
         <li><span class="keys"><kbd>Shift</kbd></span>Sprint</li>
+        <li><span class="keys"><kbd>E</kbd></span>Explore zone</li>
+        <li><span class="keys"><kbd>T</kbd></span>Skip time</li>
       </ul>
     </aside>
 
@@ -66,6 +68,16 @@
 
     <!-- ── Jump indicator ─────────────────────────────────────── -->
     <div id="jump-ready" aria-hidden="true">● Ready to jump</div>
+
+    <!-- ── Zone hint ──────────────────────────────────────────── -->
+    <div id="zone-hint" class="hidden" aria-live="polite"></div>
+
+    <!-- ── Zone panel ─────────────────────────────────────────── -->
+    <div id="zone-panel" class="hidden" role="dialog" aria-modal="true">
+      <h2 id="zone-panel-title"></h2>
+      <p id="zone-panel-desc"></p>
+      <button id="zone-panel-close">Close &nbsp;<kbd>E</kbd></button>
+    </div>
 
     <!-- ── Mobile D-pad ───────────────────────────────────────── -->
     <nav id="mobile-controls" aria-label="On-screen controls">
