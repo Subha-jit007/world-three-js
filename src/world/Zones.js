@@ -95,7 +95,7 @@ function buildAbout(up, scene) {
   g.add(monolith)
 
   // Scattered rocks
-  const rockMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.9, metalness: 0.0 })
+  const rockMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.9 })
   const rockData = [[-6, -5, 2.0], [10, -3, 1.5], [2, 11, 2.5], [-11, -4, 1.8], [7, 7, 1.2]]
   for (const [x, z, s] of rockData) {
     const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(s, 0), rockMat)
