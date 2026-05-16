@@ -65,7 +65,7 @@ function buildProjects(up, scene) {
   for (const b of buildings) {
     const mesh = new THREE.Mesh(
       new THREE.BoxGeometry(b.w, b.h, b.d),
-      new THREE.MeshStandardMaterial({ color: b.color, roughness: 0.4, metalness: 0.3 }),
+      new THREE.MeshStandardMaterial({ color: 0x2196F3, roughness: 0.7, metalness: 0.1 }),
     )
     mesh.position.set(b.x, b.h / 2, b.z)
     mesh.castShadow = mesh.receiveShadow = true
@@ -86,8 +86,8 @@ function buildAbout(up, scene) {
   const monolith = new THREE.Mesh(
     new THREE.BoxGeometry(3, 24, 3),
     new THREE.MeshStandardMaterial({
-      color: 0xffffff, emissive: 0xaaccff, emissiveIntensity: 0.6,
-      roughness: 0.1, metalness: 0.8,
+      color: 0x9C27B0, emissive: 0x4a0080, emissiveIntensity: 0.3,
+      roughness: 0.6, metalness: 0.2,
     }),
   )
   monolith.position.y = 12
@@ -95,7 +95,7 @@ function buildAbout(up, scene) {
   g.add(monolith)
 
   // Scattered rocks
-  const rockMat = new THREE.MeshStandardMaterial({ color: 0x888888, flatShading: true, roughness: 0.9 })
+  const rockMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.9, metalness: 0.0 })
   const rockData = [[-6, -5, 2.0], [10, -3, 1.5], [2, 11, 2.5], [-11, -4, 1.8], [7, 7, 1.2]]
   for (const [x, z, s] of rockData) {
     const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(s, 0), rockMat)
@@ -116,7 +116,7 @@ function buildPhotography(up, scene) {
   const g = new THREE.Group()
 
   // Camera body
-  const bodyMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.3, metalness: 0.7 })
+  const bodyMat = new THREE.MeshStandardMaterial({ color: 0x333333, roughness: 0.8, metalness: 0.3 })
   const body = new THREE.Mesh(new THREE.BoxGeometry(10, 7, 6), bodyMat)
   body.position.y = 3.5
   body.castShadow = true
@@ -131,7 +131,7 @@ function buildPhotography(up, scene) {
   g.add(lens)
 
   // Gallery frames
-  const frameMat = new THREE.MeshStandardMaterial({ color: 0xddddcc, roughness: 0.5 })
+  const frameMat = new THREE.MeshStandardMaterial({ color: 0xE91E63, roughness: 0.7, metalness: 0.1 })
   for (const [x, z] of [[-13, -4], [-8, 7], [13, -2], [9, 8]]) {
     const post = new THREE.Mesh(new THREE.BoxGeometry(0.4, 15, 0.4), frameMat)
     post.position.set(x, 7.5, z)
@@ -155,8 +155,8 @@ function buildContact(up, scene) {
   const tower = new THREE.Mesh(
     new THREE.CylinderGeometry(1.2, 2.5, 7, 12),
     new THREE.MeshStandardMaterial({
-      color: 0xffd700, emissive: 0xff8800, emissiveIntensity: 1.0,
-      roughness: 0.3, metalness: 0.6,
+      color: 0xFF9800, emissive: 0xFF6600, emissiveIntensity: 0.5,
+      roughness: 0.5, metalness: 0.2,
     }),
   )
   tower.position.y = 3.5
