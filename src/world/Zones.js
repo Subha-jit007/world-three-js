@@ -95,12 +95,12 @@ function buildAbout(up, scene) {
   g.add(monolith)
 
   // Scattered rocks
-  const rockMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.9 })
-  const rockData = [[-6, -5, 2.0], [10, -3, 1.5], [2, 11, 2.5], [-11, -4, 1.8], [7, 7, 1.2]]
+  const rockMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.9, metalness: 0.0 })
+  const rockData = [[-6, -5, 0.8], [10, -3, 0.6], [2, 11, 1.0], [-11, -4, 1.2], [7, 7, 0.5]]
   for (const [x, z, s] of rockData) {
     const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(s, 0), rockMat)
     rock.position.set(x, s, z)
-    rock.rotation.y = Math.random() * Math.PI
+    rock.rotateOnWorldAxis(up, Math.random() * Math.PI * 2)
     rock.castShadow = true
     g.add(rock)
   }
