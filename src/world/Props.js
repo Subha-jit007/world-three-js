@@ -44,9 +44,10 @@ export function addRocks(scene) {
     const phi   = Math.acos(2 * Math.random() - 1)
     const theta = Math.random() * Math.PI * 2
     const dir   = sphereDir(phi, theta)
+    const rockRadius = ROCK_SIZE_MIN + Math.random() * ROCK_SIZE_VAR
     const rock  = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(ROCK_SIZE_MIN + Math.random() * ROCK_SIZE_VAR, 0), mat)
-    rock.position.copy(dir.clone().multiplyScalar(terrainRadius(dir) + 0.05))
+      new THREE.IcosahedronGeometry(rockRadius, 0), mat)
+    rock.position.copy(dir.clone().multiplyScalar(terrainRadius(dir) + rockRadius))
     alignToSurface(rock, dir, true)
     rock.castShadow = rock.receiveShadow = true
     scene.add(rock)

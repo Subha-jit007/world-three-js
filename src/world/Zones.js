@@ -1,8 +1,11 @@
 import * as THREE from 'three'
 import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js'
-import { PLANET_RADIUS, TERRAIN_DISP_BASE } from '../constants.js'
+import { fbm } from '../utils/math.js'
+import { PLANET_RADIUS, TERRAIN_DISP_BASE, TERRAIN_DISP_AMP, TERRAIN_FBM_OCTAVES } from '../constants.js'
 
-const SURFACE_R = PLANET_RADIUS + TERRAIN_DISP_BASE + 3  // comfortably above average terrain
+function terrainRadius(dir) {
+  return PLANET_RADIUS + TERRAIN_DISP_BASE + fbm(dir.x, dir.y, dir.z, TERRAIN_FBM_OCTAVES) * TERRAIN_DISP_AMP
+}
 
 export const ZONE_DEFS = [
   { id: 'projects',    label: 'PROJECTS',    lat: 75, lon: 0,   desc: 'Selected work — web, 3D, and interactive experiments.', color: 0x00ffcc },
@@ -93,10 +96,10 @@ function buildAbout(up, scene) {
 
   // Scattered rocks
   const rockMat = new THREE.MeshStandardMaterial({ color: 0x888888, flatShading: true, roughness: 0.9 })
-  const rockData = [[-11, 1, -5, 2.0], [9, 1, 8, 1.5], [-7, 1, 11, 2.5], [13, 1, -3, 1.8], [-13, 1, 5, 1.2]]
-  for (const [x, y, z, s] of rockData) {
+  const rockData = [[-6, -5, 2.0], [10, -3, 1.5], [2, 11, 2.5], [-11, -4, 1.8], [7, 7, 1.2]]
+  for (const [x, z, s] of rockData) {
     const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(s, 0), rockMat)
-    rock.position.set(x, y, z)
+    rock.position.set(x, s, z)
     rock.rotation.y = Math.random() * Math.PI
     rock.castShadow = true
     g.add(rock)
@@ -115,7 +118,7 @@ function buildPhotography(up, scene) {
   // Camera body
   const bodyMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.3, metalness: 0.7 })
   const body = new THREE.Mesh(new THREE.BoxGeometry(10, 7, 6), bodyMat)
-  body.position.y = 6
+  body.position.y = 3.5
   body.castShadow = true
   g.add(body)
 
@@ -124,7 +127,7 @@ function buildPhotography(up, scene) {
     new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.05, metalness: 0.95 }),
   )
   lens.rotation.x = Math.PI / 2
-  lens.position.set(0, 6, 5)
+  lens.position.set(0, 3.5, 5)
   g.add(lens)
 
   // Gallery frames
@@ -197,7 +200,7 @@ export function buildWorldTrees(scene) {
       Math.cos(phi),
       Math.sin(phi) * Math.sin(theta),
     )
-    const base = dir.clone().multiplyScalar(SURFACE_R)
+    const base = dir.clone().multiplyScalar(terrainRadius(dir))
 
     dummy.position.copy(base.clone().addScaledVector(dir, 2.5))
     dummy.quaternion.setFromUnitVectors(worldY, dir)
@@ -227,8 +230,8 @@ export function buildZones(scene) {
   const result = []
 
   for (const def of ZONE_DEFS) {
-    const pos = toSphere(def.lat, def.lon, SURFACE_R)
-    const up  = pos.clone().normalize()
+    const up  = toSphere(def.lat, def.lon, 1)   // unit direction toward zone
+    const pos = up.clone().multiplyScalar(terrainRadius(up))
 
     let g
     if (def.id === 'projects')    g = buildProjects(up, scene)
