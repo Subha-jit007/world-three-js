@@ -49,7 +49,15 @@ buildWorldTrees(scene)
 // ─── Cosmos + fixed noon lighting ────────────────────────────────────────────
 const cosmos   = new Cosmos(scene)
 const dayNight = new DayNight(scene, cosmos, ambient)
-dayNight.update(0)  // one-time call: lock sky/sun/ambient at noon (time=0.5)
+dayNight.update(0)          // set sky dome + sun position at noon
+ambient.color.set(0xffffff) // override DayNight's dim noon ambient
+ambient.intensity = 0.8
+
+// ─── Camera fill light (always lights whatever the camera sees) ───────────────
+const fillLight = new THREE.PointLight(0xffffff, 0.6, 80)
+fillLight.position.set(0, 5, 10)
+camera.add(fillLight)
+scene.add(camera)           // camera must be in scene graph for child lights
 
 // ─── Portfolio zones ─────────────────────────────────────────────────────────
 const zones          = buildZones(scene)

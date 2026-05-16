@@ -10,7 +10,7 @@ export function createRenderer() {
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type    = THREE.PCFSoftShadowMap
   renderer.toneMapping       = THREE.ACESFilmicToneMapping
-  renderer.toneMappingExposure = 1.0
+  renderer.toneMappingExposure = 1.4
   document.body.appendChild(renderer.domElement)
   return renderer
 }

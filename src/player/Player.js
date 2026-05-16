@@ -27,9 +27,18 @@ export class Player {
   get position() { return this.group.position }
 
   _buildMesh() {
-    const bodyMat = new THREE.MeshStandardMaterial({ color: 0x88a0cc, roughness: 0.35, metalness: 0.25 })
-    const legMat  = new THREE.MeshStandardMaterial({ color: 0x4a5e80, roughness: 0.5,  metalness: 0.1 })
-    const footMat = new THREE.MeshStandardMaterial({ color: 0x2a3a58, roughness: 0.6 })
+    const bodyMat = new THREE.MeshStandardMaterial({
+      color: 0x88a0cc, roughness: 0.35, metalness: 0.25,
+      emissive: new THREE.Color(0x111111), emissiveIntensity: 0.2,
+    })
+    const legMat  = new THREE.MeshStandardMaterial({
+      color: 0x4a5e80, roughness: 0.5, metalness: 0.1,
+      emissive: new THREE.Color(0x080810), emissiveIntensity: 0.2,
+    })
+    const footMat = new THREE.MeshStandardMaterial({
+      color: 0x2a3a58, roughness: 0.6,
+      emissive: new THREE.Color(0x080810), emissiveIntensity: 0.2,
+    })
     this._visorMat = new THREE.MeshStandardMaterial({
       color: 0x60b0ff, emissive: 0x1040a0, roughness: 0.1, metalness: 0.8,
     })
@@ -55,7 +64,11 @@ export class Player {
     this._footL.position.set(-LEG_X, FOOT_REST_Y, FOOT_Z)
     this._footR.position.set( LEG_X, FOOT_REST_Y, FOOT_Z)
 
-    this.group.add(bodyTop, bodyMid, visor, this._legL, this._legR, this._footL, this._footR)
+    // Dedicated light above the character — always lit from above regardless of sun
+    const charLight = new THREE.PointLight(0xffffff, 0.8, 30)
+    charLight.position.set(0, 5, 0)
+
+    this.group.add(bodyTop, bodyMid, visor, this._legL, this._legR, this._footL, this._footR, charLight)
     ;[bodyTop, bodyMid, visor, this._legL, this._legR, this._footL, this._footR]
       .forEach(m => { m.castShadow = true })
   }
