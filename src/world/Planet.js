@@ -46,13 +46,12 @@ function assignVertexColors(geo) {
 export function buildPlanet(scene) {
   const geo = new THREE.IcosahedronGeometry(PLANET_RADIUS, TERRAIN_SUBDIV)
   displaceTerrain(geo)
-  assignVertexColors(geo)
 
   const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
-    vertexColors: true,
-    flatShading:  true,
-    roughness:    0.92,
-    metalness:    0.0,
+    color:      0x7ec850,
+    flatShading: true,
+    roughness:   0.85,
+    metalness:   0.0,
   }))
   mesh.receiveShadow = true
   scene.add(mesh)
