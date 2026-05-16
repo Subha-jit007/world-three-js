@@ -178,8 +178,8 @@ export function buildWorldTrees(scene) {
   const COUNT   = 120
   const trunkG  = new THREE.CylinderGeometry(0.4, 0.7, 5, 6)
   const canopyG = new THREE.ConeGeometry(3.5, 7, 6)
-  const trunkM  = new THREE.MeshLambertMaterial({ color: 0x4a2f1a })
-  const canopyM = new THREE.MeshLambertMaterial({ color: 0x2d5a1b })
+  const trunkM  = new THREE.MeshStandardMaterial({ color: 0x8B5E3C, roughness: 0.8 })
+  const canopyM = new THREE.MeshStandardMaterial({ color: 0x4CAF50, roughness: 0.8 })
 
   const trunks  = new THREE.InstancedMesh(trunkG, trunkM, COUNT)
   const canopies = new THREE.InstancedMesh(canopyG, canopyM, COUNT)
