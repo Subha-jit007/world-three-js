@@ -36,6 +36,7 @@ function glowRing(color) {
   })
   const ring = new THREE.Mesh(new THREE.RingGeometry(16, 19, 64), mat)
   ring.rotation.x = -Math.PI / 2
+  ring.position.y = 0.1
   return ring
 }
 
@@ -91,7 +92,7 @@ function buildAbout(up, scene) {
   g.add(monolith)
 
   // Scattered rocks
-  const rockMat = new THREE.MeshStandardMaterial({ color: 0x667788, flatShading: true, roughness: 0.9 })
+  const rockMat = new THREE.MeshStandardMaterial({ color: 0x888888, flatShading: true, roughness: 0.9 })
   const rockData = [[-11, 1, -5, 2.0], [9, 1, 8, 1.5], [-7, 1, 11, 2.5], [13, 1, -3, 1.8], [-13, 1, 5, 1.2]]
   for (const [x, y, z, s] of rockData) {
     const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(s, 0), rockMat)
@@ -149,25 +150,25 @@ function buildContact(up, scene) {
 
   // Beacon tower
   const tower = new THREE.Mesh(
-    new THREE.CylinderGeometry(1.2, 2.5, 28, 12),
+    new THREE.CylinderGeometry(1.2, 2.5, 7, 12),
     new THREE.MeshStandardMaterial({
       color: 0xffd700, emissive: 0xff8800, emissiveIntensity: 1.0,
       roughness: 0.3, metalness: 0.6,
     }),
   )
-  tower.position.y = 14
+  tower.position.y = 3.5
   tower.castShadow = true
   g.add(tower)
 
   // Pulsing point light at beacon tip — stored on group for animation
   const beacon = new THREE.PointLight(0xff8800, 4, 80)
-  beacon.position.y = 30
+  beacon.position.y = 8
   beacon.name = 'beacon'
   g.add(beacon)
 
   g.add(glowRing(0xffd700))
   const lbl = zoneLabel('CONTACT')
-  lbl.position.set(0, 34, 0)
+  lbl.position.set(0, 10, 0)
   g.add(lbl)
   return g
 }
